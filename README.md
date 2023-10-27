@@ -15,7 +15,7 @@ upi_chooser: ^0.0.1
 2. Import the package.
 
 ```Dart
- import 'package:upi_chooser/upi_chooser.dart';
+import 'package:upi_chooser/upi_chooser.dart';
 ```
 
 3. Use the function.

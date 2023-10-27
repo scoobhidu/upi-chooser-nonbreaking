@@ -3,7 +3,7 @@ description: Flutter plugin to get the list of UPI apps that are installed on th
 version: 0.0.1
 repository: https://github.com/cooltechie-info/upi-chooser
 screenshots:
-  - description: 'UPI Apps'
+  - description: 'UPI App list'
     path: example/assets/img-upi-chooser.png
 
 environment:
