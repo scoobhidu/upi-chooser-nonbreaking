@@ -65,23 +65,32 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,
                 childAspectRatio: 1.2,
-                crossAxisCount: 4,
+                crossAxisCount: 3,
               ),
               itemBuilder: (BuildContext context, int index) {
                 return SizedBox(
-                  height: 80,
-                  width: 80,
+                  height: 60,
+                  width: 60,
                   child: Card(
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Image.memory(
-                            upiAppsData![index].imageData!,
-                            height: 42,
-                          ),
-                          Text('${upiAppsData![index].displayName}'),
-                        ],
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Expanded(
+                              child: Image.memory(
+                                upiAppsData![index].imageData!,
+                                width: 58,
+                              ),
+                            ),
+                            Text('${upiAppsData![index].displayName}'),
+                            const SizedBox(height: 6),
+                          ],
+                        ),
                       ),
                     ),
                   ),

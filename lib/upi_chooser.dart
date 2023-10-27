@@ -50,7 +50,8 @@ class UpiChooser {
       packageName: '',
     ),
     AppInfo(
-        appName: "Amazon", packageName: UpiAppsHelper.amazonPay.packageName),
+        appName: "Amazon Pay",
+        packageName: UpiAppsHelper.amazonPay.packageName),
     AppInfo(
       appName: "My Airtel",
       packageName: '',
@@ -71,7 +72,7 @@ class UpiChooser {
     AppInfo(appName: "PhonePe", packageName: "phonepe://"),
     AppInfo(appName: "BHIM", packageName: "bhim://"),
     AppInfo(appName: "CRED", packageName: "credpay://"),
-    AppInfo(appName: "Amazon", packageName: "amazon://"),
+    AppInfo(appName: "Amazon Pay", packageName: "amazon://"),
     AppInfo(appName: "My Airtel", packageName: "myairtel://"),
     AppInfo(
       appName: "Payzapp",

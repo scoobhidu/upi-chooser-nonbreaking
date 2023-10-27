@@ -393,9 +393,9 @@ class UpiAppsHelper {
   static const phonepeImg =
       "https://github.com/cooltechie-info/upi-chooser/blob/master/example/assets/upi/phonepe.png?raw=true";
   static const airtelImg =
-      "https://github.com/cooltechie-info/upi-chooser/blob/master/example/assets/upi/phonepe.png?raw=true";
+      "https://github.com/cooltechie-info/upi-chooser/blob/master/example/assets/upi/airtel.png?raw=true";
   static const payzappImg =
-      "https://github.com/cooltechie-info/upi-chooser/blob/master/example/assets/upi/phonepe.png?raw=true";
+      "https://github.com/cooltechie-info/upi-chooser/blob/master/example/assets/upi/payzapp.png?raw=true";
   static const mobikwikImg =
-      "https://github.com/cooltechie-info/upi-chooser/blob/master/example/assets/upi/phonepe.png?raw=true";
+      "https://github.com/cooltechie-info/upi-chooser/blob/master/example/assets/upi/mobikwik.png?raw=true";
 }
