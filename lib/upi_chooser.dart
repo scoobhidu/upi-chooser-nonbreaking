@@ -1,6 +1,4 @@
-
 import 'upi_chooser_platform_interface.dart';
-
 import 'dart:io';
 import 'package:appcheck/appcheck.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'upi_apps_helper.dart';
 import 'upi_apps.dart';
-
-
 
 class UpiChooser {
   Future<String?> getPlatformVersion() {
