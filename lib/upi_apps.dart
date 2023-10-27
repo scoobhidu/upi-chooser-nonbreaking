@@ -22,8 +22,8 @@ class UpiApps {
   /// Image for the package - [ByteData]
   Uint8List? imageData;
 
+  /// Default constructor for UpiApps
   UpiApps({
-    /// Default constructor for UpiApps
     this.id,
     this.displayName,
     this.icon,
@@ -33,8 +33,8 @@ class UpiApps {
     this.imageData,
   });
 
+  /// Json encode / decode
   UpiApps.fromJson(Map<String, dynamic> json) {
-    /// Json encode / decode
     id = json['id'] ?? 0;
     displayName = json['displayName'] ?? '';
     icon = json['icon'] ?? '';

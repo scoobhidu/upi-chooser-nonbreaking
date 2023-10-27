@@ -45,10 +45,24 @@ class UpiChooser {
     AppInfo(appName: "Paytm", packageName: UpiAppsHelper.paytm.packageName),
     AppInfo(appName: "PhonePe", packageName: UpiAppsHelper.phonePe.packageName),
     AppInfo(appName: "BHIM", packageName: UpiAppsHelper.bhim.packageName),
-    // AppInfo(appName: "CRED", packageName: UpiAppsHelper..packageName,),
+    AppInfo(
+      appName: "CRED",
+      packageName: '',
+    ),
     AppInfo(
         appName: "Amazon", packageName: UpiAppsHelper.amazonPay.packageName),
-    // AppInfo(appName: "My Airtel", packageName: UpiAppsHelper..packageName,),
+    AppInfo(
+      appName: "My Airtel",
+      packageName: '',
+    ),
+    AppInfo(
+      appName: "Payzapp",
+      packageName: '',
+    ),
+    AppInfo(
+      appName: "Mobikwik",
+      packageName: '',
+    ),
   ];
 
   List<AppInfo> iOSApps = [
@@ -59,6 +73,14 @@ class UpiChooser {
     AppInfo(appName: "CRED", packageName: "credpay://"),
     AppInfo(appName: "Amazon", packageName: "amazon://"),
     AppInfo(appName: "My Airtel", packageName: "myairtel://"),
+    AppInfo(
+      appName: "Payzapp",
+      packageName: '',
+    ),
+    AppInfo(
+      appName: "Mobikwik",
+      packageName: '',
+    ),
   ];
 
   List<String> upiAndroidIcons = [
@@ -66,9 +88,11 @@ class UpiChooser {
     UpiAppsHelper.paytmImg,
     UpiAppsHelper.phonepeImg,
     UpiAppsHelper.bhimImg,
-    // UpiAppsHelper.credImg,
+    UpiAppsHelper.credImg,
     UpiAppsHelper.amazonImg,
-    // UpiAppsHelper.amazonImg,
+    UpiAppsHelper.airtelImg,
+    UpiAppsHelper.payzappImg,
+    UpiAppsHelper.mobikwikImg,
   ];
   List<String> upiIosIcons = [
     UpiAppsHelper.gpayImg,
@@ -77,7 +101,9 @@ class UpiChooser {
     UpiAppsHelper.bhimImg,
     UpiAppsHelper.credImg,
     UpiAppsHelper.amazonImg,
-    UpiAppsHelper.amazonImg,
+    UpiAppsHelper.airtelImg,
+    UpiAppsHelper.payzappImg,
+    UpiAppsHelper.mobikwikImg,
   ];
 
   List<UpiApps> upiAppsMapList = [];
@@ -88,9 +114,9 @@ class UpiChooser {
       if (Platform.isAndroid) {
         for (int i = 0; i < androidApps.length; i++) {
           try {
-            await AppCheck.checkAvailability(androidApps[i].packageName).then(
-              (app) => debugPrint(app.toString()),
-            );
+            // await AppCheck.checkAvailability(androidApps[i].packageName).then(
+            //   (app) => debugPrint(app.toString()),
+            // );
             debugPrint('upiAndroidIcons[i]: ${upiAndroidIcons[i]}');
             upiAppsMapList.add(
               UpiApps(
@@ -169,7 +195,7 @@ class UpiChooser {
   void launchUpiIntent(String schemeVal) {
     launchUrl(Uri(scheme: schemeVal, path: "//upi/pay", queryParameters: {
       "pa": "test@bank",
-      "pn": "OnePe",
+      "pn": "Jhon",
       "tr": "15330175804633937",
       "tn": "Test",
       "am": "10",
