@@ -1,4 +1,4 @@
-[![pub package](https://img.shields.io/badge/pub-0.0.3-blue.svg)](https://pub.dev/packages/upi_chooser)
+[![pub package](https://img.shields.io/badge/pub-0.0.4-blue.svg)](https://pub.dev/packages/upi_chooser)
 
 Flutter plugin to get the list of UPI apps that are installed on the device.
 
@@ -9,7 +9,7 @@ Note: This plugin only lists the available Apps, doesn't get transaction respons
 1. Add the dependency.
 
 ```yml
-upi_chooser: ^0.0.3
+upi_chooser: ^0.0.4
 ```
 
 2. Import the package.
@@ -22,9 +22,9 @@ import 'package:upi_chooser/upi_chooser.dart';
 
 ```Dart
  
-final fetchUpiApps = UpiChooser();
+final upiChooser = UpiChooser();
 
-upiAppsData = await fetchUpiApps.getUpiAppList();
+var upiAppsData = await upiChooser.getUpiAppList();
 
 ```
 
@@ -102,7 +102,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisCount: 4,
               ),
               itemBuilder: (BuildContext context, int index) {
-                return SizedBox(
+                return InkWell(
+                        onTap: () {
+                          upiChooser.launchUpiIntent(
+                              Platform.isIOS
+                                  ? upiAppsData![index].scheme!
+                                  : upiAppsData![index].appUri!,
+                              "jhon@testupi",
+                              "Jhon",
+                              "308720457203456",
+                              "100");
+                        },                        
+                child: SizedBox(
                   height: 80,
                   width: 80,                  
                   child: Card(
@@ -119,9 +130,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
+          ),
     );
   }
 }

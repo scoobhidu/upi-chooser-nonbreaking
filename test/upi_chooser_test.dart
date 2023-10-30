@@ -9,7 +9,7 @@ class MockUpiChooserPlatform
     implements UpiChooserPlatform {
 
   @override
-  Future<String?> getPlatformVersion() => Future.value('42');
+  Future<String?> getPlatformVersion(String pkgName) => Future.value('42');
 }
 
 void main() {
@@ -24,6 +24,6 @@ void main() {
     MockUpiChooserPlatform fakePlatform = MockUpiChooserPlatform();
     UpiChooserPlatform.instance = fakePlatform;
 
-    expect(await upiChooserPlugin.getPlatformVersion(), '42');
+    expect(await upiChooserPlugin.getPlatformVersion("com.google.android.apps.nbu.paisa.user"), '42');
   });
 }

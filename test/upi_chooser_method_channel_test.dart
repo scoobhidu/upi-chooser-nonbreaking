@@ -22,6 +22,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await platform.getPlatformVersion(), '42');
+    expect(await platform.getPlatformVersion("com.google.android.apps.nbu.paisa.user"), '42');
   });
 }

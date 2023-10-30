@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Added documentation and guidelines.
+
 ## 0.0.3
 
 * Included few UPI apps.

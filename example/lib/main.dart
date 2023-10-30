@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:upi_chooser/upi_apps.dart';
@@ -77,19 +79,31 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Expanded(
-                              child: Image.network(
-                                upiAppsData![index].iconUrl!,
-                                width: 58,
+                      child: InkWell(
+                        onTap: () {
+                          upiChooser.launchUpiIntent(
+                              Platform.isIOS
+                                  ? upiAppsData![index].scheme!
+                                  : upiAppsData![index].appUri!,
+                              "jhon@testupi",
+                              "Jhon",
+                              "308720457203456",
+                              "100");
+                        },
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                child: Image.network(
+                                  upiAppsData![index].iconUrl!,
+                                  width: 58,
+                                ),
                               ),
-                            ),
-                            Text('${upiAppsData![index].displayName}'),
-                            const SizedBox(height: 6),
-                          ],
+                              Text('${upiAppsData![index].displayName}'),
+                              const SizedBox(height: 6),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -97,13 +111,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // upiChooser.launchUpiChooser();
-          upiChooser.openIntentChooser();
-        },
-        child: const Icon(Icons.open_in_new),
-      ),
     );
   }
 }

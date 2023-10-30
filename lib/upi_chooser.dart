@@ -1,16 +1,14 @@
 import 'dart:io';
-import 'package:android_intent_plus/android_intent.dart';
 import 'package:appcheck/appcheck.dart';
 import 'package:flutter/material.dart';
-import 'package:upi_chooser/upi_chooser_method_channel.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'upi_apps.dart';
 import 'upi_apps_helper.dart';
 import 'upi_chooser_platform_interface.dart';
 
 class UpiChooser {
-  Future<String?> getPlatformVersion() {
-    return UpiChooserPlatform.instance.getPlatformVersion();
+  Future<String?> getPlatformVersion(String pkgName) {
+    return UpiChooserPlatform.instance.getPlatformVersion(pkgName);
   }
 
   final List<String> verifiedFuaApps = [
@@ -50,10 +48,10 @@ class UpiChooser {
       appName: "CRED",
       packageName: 'com.dreamplug.androidapp',
     ),
-    AppInfo(
-      appName: "Amazon Pay",
-      packageName: UpiAppsHelper.amazonPay.packageName,
-    ),
+    // AppInfo(
+    //   appName: "Amazon Pay",
+    //   packageName: UpiAppsHelper.amazonPay.packageName,
+    // ),
     AppInfo(
       appName: "My Airtel",
       packageName: "com.myairtelapp",
@@ -78,7 +76,7 @@ class UpiChooser {
     AppInfo(appName: "PhonePe", packageName: "phonepe://"),
     AppInfo(appName: "BHIM", packageName: "bhim://"),
     AppInfo(appName: "CRED", packageName: "credpay://"),
-    AppInfo(appName: "Amazon Pay", packageName: "amazon://"),
+    // AppInfo(appName: "Amazon Pay", packageName: "amazon://"),
     AppInfo(appName: "My Airtel", packageName: "myairtel://"),
     AppInfo(appName: "Payzapp", packageName: "payzapp://"),
     AppInfo(appName: "Mobikwik", packageName: "mobikwik://"),
@@ -91,7 +89,7 @@ class UpiChooser {
     UpiAppsHelper.phonepeImg,
     UpiAppsHelper.bhimImg,
     UpiAppsHelper.credImg,
-    UpiAppsHelper.amazonImg,
+    // UpiAppsHelper.amazonImg,
     UpiAppsHelper.airtelImg,
     UpiAppsHelper.payzappImg,
     UpiAppsHelper.mobikwikImg,
@@ -103,7 +101,7 @@ class UpiChooser {
     UpiAppsHelper.phonepeImg,
     UpiAppsHelper.bhimImg,
     UpiAppsHelper.credImg,
-    UpiAppsHelper.amazonImg,
+    // UpiAppsHelper.amazonImg,
     UpiAppsHelper.airtelImg,
     UpiAppsHelper.payzappImg,
     UpiAppsHelper.mobikwikImg,
@@ -128,7 +126,7 @@ class UpiChooser {
                     displayName: androidApps[i].appName,
                     appUri: androidApps[i].packageName,
                     isAvailable: true,
-                    scheme: androidApps[i].packageName,
+                    scheme: iOSApps[i].packageName.split(':')[0],
                     iconUrl: upiAndroidIcons[i],
                   ),
                 );
@@ -170,71 +168,41 @@ class UpiChooser {
     }
   }
 
-  Widget builUpiAppsList() {
-    List<Widget> upiAppsList = [];
-    debugPrint("lyraProvider.upiAppsMapList.length: ${upiAppsMapList.length}");
-    for (int i = 0; i < upiAppsMapList.length; i++) {
-      Container(
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: Colors.black12,
+  void launchUpiIntent(
+    String schemeType,
+    String vpaAddress,
+    String payeeName,
+    String txnId,
+    String amount, {
+    String merchantChannel = '',
+    String txnNotes = '',
+    String currency = 'INR',
+  }) {
+    try {
+      if (Platform.isIOS) {
+        launchUrl(
+          Uri(
+            host: 'upi',
+            scheme: schemeType,
+            path: "//pay",
+            queryParameters: {
+              "pa": vpaAddress,
+              "pn": payeeName,
+              "tr": txnId,
+              "tn": txnNotes,
+              "am": amount,
+              "cu": currency,
+              "mc": merchantChannel,
+            },
           ),
-        ),
-        child: Text(upiAppsMapList[i].displayName ?? ''),
-      );
+          mode: LaunchMode.externalApplication,
+        );
+      } else if (Platform.isAndroid) {
+        getPlatformVersion(schemeType);
+        debugPrint('getPlatformVersion()');
+      } else {}
+    } catch (exception) {
+      debugPrint('Error');
     }
-    return Wrap(
-      children: upiAppsList,
-    );
-  }
-
-  void launchUpiIntent(String schemeVal) {
-    launchUrl(Uri(scheme: schemeVal, path: "//upi/pay", queryParameters: {
-      "pa": "test@bank",
-      "pn": "Jhon",
-      "tr": "15330175804633937",
-      "tn": "Test",
-      "am": "10",
-      "cu": "INR",
-      "mc": "621"
-    }));
-  }
-
-  String url =
-      'upi://pay?pa=kechamadavipul@okhdfcbank&pn=Payee Name&tn=Payment Message&cu=INR';
-
-  void launchUpiChooser() {
-    launchUrl(
-      // Uri(
-      //   scheme: 'upi',
-      //   path: "//upi/pay",
-      //   queryParameters: {
-      //     "pa": "test@bank",
-      //     "pn": "Jhon",
-      //     "tr": "15330175804633937",
-      //     "tn": "Test",
-      //     "am": "10",
-      //     "cu": "INR",
-      //     "mc": "621"
-      //   },
-      // ),
-// url,
-      Uri.parse(url),
-      // mode: LaunchMode.externalApplication,
-    );
-  }
-
-  void openIntentChooser() {
-    // debugPrint("type: 'upi/pay', | upi://pay ");
-    // AndroidIntent(
-    //         action: 'android.intent.action.VIEW',
-    //         type: 'upi/pay',
-    //         data: 'upi://pay',
-    //         category: 'upi')
-    //     .launchChooser('Chose an app');
-    MethodChannelUpiChooser().getPlatformVersion();
   }
 }
