@@ -1,4 +1,4 @@
-[![pub package](https://img.shields.io/badge/pub-0.0.2-blue.svg)](https://pub.dev/packages/upi_chooser)
+[![pub package](https://img.shields.io/badge/pub-0.0.3-blue.svg)](https://pub.dev/packages/upi_chooser)
 
 Flutter plugin to get the list of UPI apps that are installed on the device.
 
@@ -9,7 +9,7 @@ Note: This plugin only lists the available Apps, doesn't get transaction respons
 1. Add the dependency.
 
 ```yml
-upi_chooser: ^0.0.2
+upi_chooser: ^0.0.3
 ```
 
 2. Import the package.
@@ -110,8 +110,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Image.memory(
-                            upiAppsData![index].imageData!,
+                        Image.network(
+                            upiAppsData![index].iconUrl!,
                             height: 42,
                           ),
                           Text('${upiAppsData![index].displayName}'),

@@ -1,11 +1,12 @@
-import 'upi_chooser_platform_interface.dart';
 import 'dart:io';
+
 import 'package:appcheck/appcheck.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'upi_apps_helper.dart';
+
 import 'upi_apps.dart';
+import 'upi_apps_helper.dart';
+import 'upi_chooser_platform_interface.dart';
 
 class UpiChooser {
   Future<String?> getPlatformVersion() {
@@ -47,22 +48,27 @@ class UpiChooser {
     AppInfo(appName: "BHIM", packageName: UpiAppsHelper.bhim.packageName),
     AppInfo(
       appName: "CRED",
-      packageName: '',
+      packageName: 'com.dreamplug.androidapp',
     ),
     AppInfo(
-        appName: "Amazon Pay",
-        packageName: UpiAppsHelper.amazonPay.packageName),
+      appName: "Amazon Pay",
+      packageName: UpiAppsHelper.amazonPay.packageName,
+    ),
     AppInfo(
       appName: "My Airtel",
-      packageName: '',
+      packageName: "com.myairtelapp",
     ),
     AppInfo(
       appName: "Payzapp",
-      packageName: '',
+      packageName: UpiAppsHelper.payZapp.packageName,
     ),
     AppInfo(
       appName: "Mobikwik",
-      packageName: '',
+      packageName: UpiAppsHelper.mobikwik.packageName,
+    ),
+    AppInfo(
+      appName: "Freecharge",
+      packageName: UpiAppsHelper.freecharge.packageName,
     ),
   ];
 
@@ -74,14 +80,9 @@ class UpiChooser {
     AppInfo(appName: "CRED", packageName: "credpay://"),
     AppInfo(appName: "Amazon Pay", packageName: "amazon://"),
     AppInfo(appName: "My Airtel", packageName: "myairtel://"),
-    AppInfo(
-      appName: "Payzapp",
-      packageName: '',
-    ),
-    AppInfo(
-      appName: "Mobikwik",
-      packageName: '',
-    ),
+    AppInfo(appName: "Payzapp", packageName: "payzapp://"),
+    AppInfo(appName: "Mobikwik", packageName: "mobikwik://"),
+    AppInfo(appName: "Freecharge", packageName: "freecharge://"),
   ];
 
   List<String> upiAndroidIcons = [
@@ -94,6 +95,7 @@ class UpiChooser {
     UpiAppsHelper.airtelImg,
     UpiAppsHelper.payzappImg,
     UpiAppsHelper.mobikwikImg,
+    UpiAppsHelper.freechargeImg,
   ];
   List<String> upiIosIcons = [
     UpiAppsHelper.gpayImg,
@@ -105,6 +107,7 @@ class UpiChooser {
     UpiAppsHelper.airtelImg,
     UpiAppsHelper.payzappImg,
     UpiAppsHelper.mobikwikImg,
+    UpiAppsHelper.freechargeImg,
   ];
 
   List<UpiApps> upiAppsMapList = [];
@@ -115,23 +118,21 @@ class UpiChooser {
       if (Platform.isAndroid) {
         for (int i = 0; i < androidApps.length; i++) {
           try {
-            // await AppCheck.checkAvailability(androidApps[i].packageName).then(
-            //   (app) => debugPrint(app.toString()),
-            // );
-            debugPrint('upiAndroidIcons[i]: ${upiAndroidIcons[i]}');
-            upiAppsMapList.add(
-              UpiApps(
-                id: i,
-                displayName: androidApps[i].appName,
-                appUri: androidApps[i].packageName,
-                isAvailable: true,
-                scheme: androidApps[i].packageName,
-                imageData:
-                    (await NetworkAssetBundle(Uri.parse(upiAndroidIcons[i]))
-                            .load(upiAndroidIcons[i]))
-                        .buffer
-                        .asUint8List(),
-              ),
+            await AppCheck.checkAvailability(androidApps[i].packageName).then(
+              (app) {
+                debugPrint(app.toString());
+                debugPrint('upiAndroidIcons[i]: ${upiAndroidIcons[i]}');
+                upiAppsMapList.add(
+                  UpiApps(
+                    id: i,
+                    displayName: androidApps[i].appName,
+                    appUri: androidApps[i].packageName,
+                    isAvailable: true,
+                    scheme: androidApps[i].packageName,
+                    iconUrl: upiAndroidIcons[i],
+                  ),
+                );
+              },
             );
           } catch (e) {
             debugPrint('isAppAvailable | for | e: $e');
@@ -142,22 +143,19 @@ class UpiChooser {
         for (int i = 0; i < iOSApps.length; i++) {
           try {
             await AppCheck.checkAvailability(iOSApps[i].packageName).then(
-              (app) => debugPrint(app.toString()),
-            );
-            upiAppsMapList.add(
-              UpiApps(
-                id: i,
-                displayName: iOSApps[i].appName,
-                appUri: iOSApps[i].packageName,
-                isAvailable: true,
-                scheme: iOSApps[i].packageName.split(':')[0],
-                imageData:
-                    //  await rootBundle.load(upiIosIcons[i]) as Uint8List,
-                    (await NetworkAssetBundle(Uri.parse(upiIosIcons[i]))
-                            .load(upiIosIcons[i]))
-                        .buffer
-                        .asUint8List(),
-              ),
+              (app) {
+                debugPrint(app.toString());
+                upiAppsMapList.add(
+                  UpiApps(
+                    id: i,
+                    displayName: iOSApps[i].appName,
+                    appUri: iOSApps[i].packageName,
+                    isAvailable: true,
+                    scheme: iOSApps[i].packageName.split(':')[0],
+                    iconUrl: upiAndroidIcons[i],
+                  ),
+                );
+              },
             );
           } catch (e) {
             debugPrint('isAppAvailable | for | e: $e');

@@ -398,4 +398,6 @@ class UpiAppsHelper {
       "https://github.com/cooltechie-info/upi-chooser/blob/master/example/assets/upi/payzapp.png?raw=true";
   static const mobikwikImg =
       "https://github.com/cooltechie-info/upi-chooser/blob/master/example/assets/upi/mobikwik.png?raw=true";
+  static const freechargeImg =
+      "https://github.com/cooltechie-info/upi-chooser/blob/master/example/assets/upi/freecharge.png?raw=true";
 }

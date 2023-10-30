@@ -82,8 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Expanded(
-                              child: Image.memory(
-                                upiAppsData![index].imageData!,
+                              child: Image.network(
+                                upiAppsData![index].iconUrl!,
                                 width: 58,
                               ),
                             ),

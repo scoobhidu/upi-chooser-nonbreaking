@@ -8,7 +8,7 @@ class UpiApps {
   String? displayName;
 
   /// Icon for the package - [String]
-  String? icon;
+  String? iconUrl;
 
   /// App URI for the package - [String]
   String? appUri;
@@ -26,7 +26,7 @@ class UpiApps {
   UpiApps({
     this.id,
     this.displayName,
-    this.icon,
+    this.iconUrl,
     this.appUri,
     this.isAvailable,
     this.scheme,
@@ -37,7 +37,7 @@ class UpiApps {
   UpiApps.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? 0;
     displayName = json['displayName'] ?? '';
-    icon = json['icon'] ?? '';
+    iconUrl = json['icon'] ?? '';
     appUri = json['appUri'] ?? '';
     isAvailable = json['isAvailable'] ?? false;
     scheme = json['scheme'] ?? '';
@@ -48,7 +48,7 @@ class UpiApps {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['displayName'] = displayName;
-    data['icon'] = icon;
+    data['icon'] = iconUrl;
     data['appUri'] = appUri;
     data['isAvailable'] = isAvailable;
     data['scheme'] = scheme;
