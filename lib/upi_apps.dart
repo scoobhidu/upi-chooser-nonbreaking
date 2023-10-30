@@ -32,27 +32,4 @@ class UpiApps {
     this.scheme,
     this.imageData,
   });
-
-  /// Json encode / decode
-  UpiApps.fromJson(Map<String, dynamic> json) {
-    id = json['id'] ?? 0;
-    displayName = json['displayName'] ?? '';
-    iconUrl = json['icon'] ?? '';
-    appUri = json['appUri'] ?? '';
-    isAvailable = json['isAvailable'] ?? false;
-    scheme = json['scheme'] ?? '';
-    imageData = json['imageData'] ?? '';
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['displayName'] = displayName;
-    data['icon'] = iconUrl;
-    data['appUri'] = appUri;
-    data['isAvailable'] = isAvailable;
-    data['scheme'] = scheme;
-    data['imageData'] = imageData;
-    return data;
-  }
 }

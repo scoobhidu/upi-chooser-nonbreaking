@@ -33,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<UpiApps>? upiAppsData;
+  final upiChooser = UpiChooser();
 
   @override
   void initState() {
@@ -43,8 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> fetchUpiAppsData() async {
-    final fetchUpiApps = UpiChooser();
-    upiAppsData = await fetchUpiApps.getUpiAppList();
+    upiAppsData = await upiChooser.getUpiAppList();
     setState(() {});
   }
 
@@ -97,6 +97,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // upiChooser.launchUpiChooser();
+          upiChooser.openIntentChooser();
+        },
+        child: const Icon(Icons.open_in_new),
+      ),
     );
   }
 }

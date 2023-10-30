@@ -12,7 +12,7 @@ class MethodChannelUpiChooser extends UpiChooserPlatform {
   @override
   Future<String?> getPlatformVersion() async {
     final version =
-        await methodChannel.invokeMethod<String>('getPlatformVersion');
+        await methodChannel.invokeMethod<String>('getUpiApps');
     return version;
   }
 }

@@ -1,9 +1,9 @@
 import 'dart:io';
-
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:appcheck/appcheck.dart';
 import 'package:flutter/material.dart';
+import 'package:upi_chooser/upi_chooser_method_channel.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'upi_apps.dart';
 import 'upi_apps_helper.dart';
 import 'upi_chooser_platform_interface.dart';
@@ -152,7 +152,7 @@ class UpiChooser {
                     appUri: iOSApps[i].packageName,
                     isAvailable: true,
                     scheme: iOSApps[i].packageName.split(':')[0],
-                    iconUrl: upiAndroidIcons[i],
+                    iconUrl: upiIosIcons[i],
                   ),
                 );
               },
@@ -201,5 +201,40 @@ class UpiChooser {
       "cu": "INR",
       "mc": "621"
     }));
+  }
+
+  String url =
+      'upi://pay?pa=kechamadavipul@okhdfcbank&pn=Payee Name&tn=Payment Message&cu=INR';
+
+  void launchUpiChooser() {
+    launchUrl(
+      // Uri(
+      //   scheme: 'upi',
+      //   path: "//upi/pay",
+      //   queryParameters: {
+      //     "pa": "test@bank",
+      //     "pn": "Jhon",
+      //     "tr": "15330175804633937",
+      //     "tn": "Test",
+      //     "am": "10",
+      //     "cu": "INR",
+      //     "mc": "621"
+      //   },
+      // ),
+// url,
+      Uri.parse(url),
+      // mode: LaunchMode.externalApplication,
+    );
+  }
+
+  void openIntentChooser() {
+    // debugPrint("type: 'upi/pay', | upi://pay ");
+    // AndroidIntent(
+    //         action: 'android.intent.action.VIEW',
+    //         type: 'upi/pay',
+    //         data: 'upi://pay',
+    //         category: 'upi')
+    //     .launchChooser('Chose an app');
+    MethodChannelUpiChooser().getPlatformVersion();
   }
 }

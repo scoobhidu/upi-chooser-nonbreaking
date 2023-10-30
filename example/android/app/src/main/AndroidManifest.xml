@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+<uses-permission android:name="android.permission.INTERNET" /> 
+<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+
     <application
         android:label="upi_chooser_example"
         android:name="${applicationName}"
@@ -30,4 +34,10 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <queries>
+    <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="upi" android:host="pay"/>
+    </intent>
+</queries>
 </manifest>
