@@ -1,7 +1,6 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:upi_chooser/upi_apps.dart';
 import 'package:upi_chooser/upi_chooser.dart';
 
@@ -80,15 +79,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: InkWell(
-                        onTap: () {
-                          upiChooser.launchUpiIntent(
-                              Platform.isIOS
-                                  ? upiAppsData![index].scheme!
-                                  : upiAppsData![index].appUri!,
-                              "jhon@testupi",
-                              "Jhon",
-                              "308720457203456",
-                              "100");
+                        onTap: () async {                    
+                          upiChooser.launchUpiChooser(
+                            Platform.isIOS
+                                ? upiAppsData![index].scheme!
+                                : upiAppsData![index].appUri!,
+                            'jhon@testupi',
+                            "Jhon",
+                            "308720457203456",
+                            "100",
+                            mid: 'J687D7E',
+                            orgid: '000000',
+                          );
                         },
                         child: Center(
                           child: Column(
