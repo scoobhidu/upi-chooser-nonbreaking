@@ -10,9 +10,9 @@ class MethodChannelUpiChooser extends UpiChooserPlatform {
   final methodChannel = const MethodChannel('upi_chooser');
 
   @override
-  Future<String?> getPlatformVersion(String pkgName) async {
+  Future<String?> getPlatformVersion(Map<String, dynamic> args) async {
     final version =
-        await methodChannel.invokeMethod<String>('getUpiApps', pkgName);
+        await methodChannel.invokeMethod<String>('getUpiApps', args);
     return version;
   }
 }

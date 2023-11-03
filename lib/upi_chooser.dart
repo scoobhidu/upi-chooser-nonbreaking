@@ -7,8 +7,8 @@ import 'upi_apps_helper.dart';
 import 'upi_chooser_platform_interface.dart';
 
 class UpiChooser {
-  Future<String?> getPlatformVersion(String pkgName) {
-    return UpiChooserPlatform.instance.getPlatformVersion(pkgName);
+  Future<String?> getPlatformVersion(Map<String, dynamic> args) {
+    return UpiChooserPlatform.instance.getPlatformVersion(args);
   }
 
   final List<String> verifiedFuaApps = [
@@ -177,6 +177,12 @@ class UpiChooser {
     String merchantChannel = '',
     String txnNotes = '',
     String currency = 'INR',
+    String payeeMCC = '',
+    String txnRefId = '',
+    String refUrl = '',
+    String mode = '00',
+    String orgid = '',
+    String mid = '',
   }) {
     try {
       if (Platform.isIOS) {
@@ -198,7 +204,81 @@ class UpiChooser {
           mode: LaunchMode.externalApplication,
         );
       } else if (Platform.isAndroid) {
-        getPlatformVersion(schemeType);
+        getPlatformVersion({
+          'launchType': 'intent',
+          'pkg': schemeType,
+          'payeeAddress': vpaAddress,
+          'payeeName': payeeName,
+          'payeeMCC': payeeMCC,
+          'txnID': txnRefId,
+          'txnRefId': txnId,
+          'txnNote': txnNotes,
+          'payeeAmount': amount,
+          'currencyCode': currency,
+          'refUrl': refUrl,
+          'mode': mode,
+          'orgid': orgid,
+          'mid': mid,
+        });
+        debugPrint('getPlatformVersion()');
+      } else {}
+    } catch (exception) {
+      debugPrint('Error');
+    }
+  }
+
+  void launchUpiChooser(
+    String schemeType,
+    String vpaAddress,
+    String payeeName,
+    String txnId,
+    String amount, {
+    String merchantChannel = '',
+    String txnNotes = '',
+    String currency = 'INR',
+    String payeeMCC = '',
+    String txnRefId = '',
+    String refUrl = '',
+    String mode = '00',
+    String orgid = '',
+    String mid = '',
+  }) {
+    try {
+      if (Platform.isIOS) {
+        launchUrl(
+          Uri(
+            host: 'upi',
+            scheme: schemeType,
+            path: "//pay",
+            queryParameters: {
+              "pa": vpaAddress,
+              "pn": payeeName,
+              "tr": txnId,
+              "tn": txnNotes,
+              "am": amount,
+              "cu": currency,
+              "mc": merchantChannel,
+            },
+          ),
+          mode: LaunchMode.externalApplication,
+        );
+      } else if (Platform.isAndroid) {
+        getPlatformVersion({
+          'launchType': 'chooser',
+          'pkg': schemeType,
+          'payeeAddress': vpaAddress,
+          'payeeName': payeeName,
+          'payeeMCC': payeeMCC,
+          'txnID': txnRefId,
+          'txnRefId': txnId,
+          'txnNote': txnNotes,
+          'payeeAmount': amount,
+          'currencyCode': currency,
+          'refUrl': refUrl,
+          'mode': mode,
+          'orgid': orgid,
+          'mid': mid,
+        });
         debugPrint('getPlatformVersion()');
       } else {}
     } catch (exception) {

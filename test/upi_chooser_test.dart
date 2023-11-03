@@ -7,9 +7,9 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockUpiChooserPlatform
     with MockPlatformInterfaceMixin
     implements UpiChooserPlatform {
-
   @override
-  Future<String?> getPlatformVersion(String pkgName) => Future.value('42');
+  Future<String?> getPlatformVersion(Map<String, dynamic> args) =>
+      Future.value('42');
 }
 
 void main() {
@@ -24,6 +24,22 @@ void main() {
     MockUpiChooserPlatform fakePlatform = MockUpiChooserPlatform();
     UpiChooserPlatform.instance = fakePlatform;
 
-    expect(await upiChooserPlugin.getPlatformVersion("com.google.android.apps.nbu.paisa.user"), '42');
+    expect(
+        await upiChooserPlugin.getPlatformVersion({
+          'pkg': '',
+          'payeeAddress': '',
+          'payeeName': '',
+          'payeeMCC': '',
+          'txnID': '',
+          'txnRefId': '',
+          'txnNote': '',
+          'payeeAmount': '',
+          'currencyCode': '',
+          'refUrl': '',
+          'mode': '',
+          'orgid': '',
+          'mid': '',
+        }),
+        '42');
   });
 }

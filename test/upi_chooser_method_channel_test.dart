@@ -9,7 +9,8 @@ void main() {
   const MethodChannel channel = MethodChannel('upi_chooser');
 
   setUp(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
       channel,
       (MethodCall methodCall) async {
         return '42';
@@ -18,10 +19,27 @@ void main() {
   });
 
   tearDown(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, null);
   });
 
   test('getPlatformVersion', () async {
-    expect(await platform.getPlatformVersion("com.google.android.apps.nbu.paisa.user"), '42');
+    expect(
+        await platform.getPlatformVersion({
+          'pkg': '',
+          'payeeAddress': '',
+          'payeeName': '',
+          'payeeMCC': '',
+          'txnID': '',
+          'txnRefId': '',
+          'txnNote': '',
+          'payeeAmount': '',
+          'currencyCode': '',
+          'refUrl': '',
+          'mode': '',
+          'orgid': '',
+          'mid': '',
+        }),
+        '42');
   });
 }

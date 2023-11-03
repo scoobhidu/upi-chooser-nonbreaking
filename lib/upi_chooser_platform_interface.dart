@@ -23,7 +23,7 @@ abstract class UpiChooserPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion(String pkgName) {
+  Future<String?> getPlatformVersion(Map<String, dynamic> args) {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

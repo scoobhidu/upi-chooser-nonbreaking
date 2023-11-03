@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Added launch intent and chooser.
+
 ## 0.0.4
 
 * Added documentation and guidelines.
