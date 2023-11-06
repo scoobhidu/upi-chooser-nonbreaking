@@ -7,7 +7,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.app.Activity;
 import android.content.ContextWrapper;
+
 import androidx.annotation.NonNull;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -49,15 +51,30 @@ public class UpiChooserPlugin implements FlutterPlugin, MethodCallHandler, Activ
             Log.i("getUpiApps", call.arguments.toString());
             Log.i("getUpiApps", call.argument("payeeAddress"));
             String uriVal = getUPIString(call.argument("payeeAddress"), call.argument("payeeName"), call.argument("payeeMCC"), call.argument("txnID"), call.argument("txnRefId"), call.argument("txnNote"), call.argument("payeeAmount"), call.argument("currencyCode"), call.argument("refUrl"), call.argument("mode"), call.argument("orgid"), call.argument("mid").toString());
-            Log.i("getUpiApps", uriVal);            
             Log.i("getUpiApps", uriVal);
-            if(call.argument("launchType")=="chooser"){
-            openChooser(uriVal);
-            }else if(call.argument("launchType")=="intent"){
-            startNewActivity(mContext, call.argument("pkg"), uriVal);
-            }else{
-            Log.i("getUpiApps", "Not implemented");
-            }            
+            Log.i("getUpiApps", "launchType: " + call.argument("launchType"));
+
+            // if(call.argument("launchType").toString()=="chooser"){
+            // openChooser(uriVal);
+            // }else if(call.argument("launchType").toString()=="intent"){
+            // startNewActivity(mContext, call.argument("pkg"), uriVal);
+            // }else{
+            // Log.i("getUpiApps", "Not implemented");
+            // }            
+            String type = call.argument("launchType");
+            switch (type) {
+                case "chooser": {
+                    openChooser(uriVal);
+                    Log.i("getUpiApps", "case: " + call.argument("launchType"));
+                }
+                case "intent": {
+                    startNewActivity(mContext, call.argument("pkg"), uriVal);
+                    Log.i("getUpiApps", "case: " + call.argument("launchType"));
+                }
+                default: {
+                    Log.i("getUpiApps", "case: " + call.argument("launchType"));
+                }
+            }
             result.success("Android " + android.os.Build.VERSION.RELEASE);
         } else {
             result.notImplemented();
@@ -76,7 +93,7 @@ public class UpiChooserPlugin implements FlutterPlugin, MethodCallHandler, Activ
 
     private void openChooser(String uri) {
         Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);        
+        intent.setAction(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(uri));
         Intent chooser = Intent.createChooser(intent, "Pay with...");
         chooser.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -124,6 +141,7 @@ public class UpiChooserPlugin implements FlutterPlugin, MethodCallHandler, Activ
         intent.setPackage(GOOGLE_PAY_PACKAGE_NAME);
         activity.startActivityForResult(intent, GOOGLE_PAY_REQUEST_CODE);
     }
+
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
         channel.setMethodCallHandler(null);
@@ -154,25 +172,25 @@ public class UpiChooserPlugin implements FlutterPlugin, MethodCallHandler, Activ
         activity = null;
     }
 
-     @Override
-     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-         if (uniqueRequestCode == requestCode && finalResult != null) {
-             if (data != null) {
-                 try {
-                     String response = data.getStringExtra("response");
-                     Log.d(TAG, "RAW RESPONSE FROM REQUESTED APP: " + response);
-                     if (!resultReturned) finalResult.success(response);
-                 } catch (Exception ex) {
-                     if (!resultReturned)
-                         finalResult.error("null_response", "No response received from app", null);
-                 }
-             } else {
-                 Log.d(TAG, "Received NULL, User cancelled the transaction.");
-                 if (!resultReturned)
-                     finalResult.error("user_canceled", "User canceled the transaction", null);
-             }
-         }
-         return true;
-     }
+    @Override
+    public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (uniqueRequestCode == requestCode && finalResult != null) {
+            if (data != null) {
+                try {
+                    String response = data.getStringExtra("response");
+                    Log.d(TAG, "RAW RESPONSE FROM REQUESTED APP: " + response);
+                    if (!resultReturned) finalResult.success(response);
+                } catch (Exception ex) {
+                    if (!resultReturned)
+                        finalResult.error("null_response", "No response received from app", null);
+                }
+            } else {
+                Log.d(TAG, "Received NULL, User cancelled the transaction.");
+                if (!resultReturned)
+                    finalResult.error("user_canceled", "User canceled the transaction", null);
+            }
+        }
+        return true;
+    }
 
 }

@@ -1,3 +1,7 @@
+## 0.0.6
+
+* Errors are handled properly.
+
 ## 0.0.5
 
 * Added launch intent and chooser.
