@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
   url_launcher: ^6.1.5
-  appcheck: ^1.0.6
+  appcheck: 1.4.0
 
 dev_dependencies:
   flutter_test:
