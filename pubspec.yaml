@@ -15,7 +15,10 @@ dependencies:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
   url_launcher: ^6.1.5
-  appcheck: 1.4.0
+  appcheck: 
+    git:
+      url: "https://github.com/Yash-Garg/AppCheck.git"
+      ref: "698ca944845848a6cd0febd973aa6781a3587612"
 
 dev_dependencies:
   flutter_test:
